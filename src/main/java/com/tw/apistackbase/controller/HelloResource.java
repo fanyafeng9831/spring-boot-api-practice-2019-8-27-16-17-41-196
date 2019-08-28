@@ -71,5 +71,17 @@ public class HelloResource {
 	  return ResponseEntity.notFound().build();
 	 }
 	
+	//删除某个特定的公司
+	 @DeleteMapping("/{id}")
+	 public ResponseEntity<List<Company>> deleteCompany(@PathVariable int id){
+	  Iterator<Company> iterator = dbSql.getCompanies().iterator();
+	  while (iterator.hasNext()) {
+	   if(iterator.next().getId() == id) {
+	    iterator.remove();
+	    return ResponseEntity.ok(dbSql.getCompanies());
+	   }
+	  }
+	  return ResponseEntity.notFound().build();
+	 }
 
 }
