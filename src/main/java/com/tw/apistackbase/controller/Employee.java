@@ -1,6 +1,6 @@
 package com.tw.apistackbase.controller;
 
-public class employee {
+public class Employee {
 	private int Id;
 	private String name;
 	private int age;
@@ -36,10 +36,10 @@ public class employee {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	public employee() {
+	public Employee() {
 		super();
 	}
-	public employee(int id, String name, int age, String gender, double salary) {
+	public Employee(int id, String name, int age, String gender, double salary) {
 	
 		Id = id;
 		this.name = name;
