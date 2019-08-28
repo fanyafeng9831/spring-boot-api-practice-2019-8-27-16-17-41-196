@@ -1,5 +1,6 @@
 package com.tw.apistackbase.controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -99,6 +100,21 @@ public class HelloResource {
 				}
 			}
 			return ResponseEntity.notFound().build();
+		}
+		
+		//查询所有男性员工
+		@GetMapping("/gender")
+		public ResponseEntity<List<Employee>> getEmployeesByGender(@RequestParam("gender") String gender) {
+			List<Employee> result = new ArrayList<Employee>();
+			dbSql.getEmployees().forEach((e) -> {
+				if(gender.equals(e.getGender())) {
+					result.add(e);
+				}
+			});
+			if(result.size() == 0) {
+				return ResponseEntity.notFound().build();
+			}
+			return ResponseEntity.ok(result);
 		}
 
 }
