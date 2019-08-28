@@ -83,5 +83,22 @@ public class HelloResource {
 	  }
 	  return ResponseEntity.notFound().build();
 	 }
+	 
+	  //获取员工名单
+	  @GetMapping("/")
+		public ResponseEntity<List<Employee>> getAllEmployees(){
+			return ResponseEntity.ok(dbSql.getEmployees());
+		}
+		
+	    //获得某个特定员工
+		@GetMapping("/{id}")
+		public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) {
+			for(Employee e : dbSql.getEmployees()) {
+				if(e.getId() == id) {
+					return ResponseEntity.ok(e);
+				}
+			}
+			return ResponseEntity.notFound().build();
+		}
 
 }
