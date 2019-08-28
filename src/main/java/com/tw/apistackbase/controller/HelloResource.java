@@ -116,5 +116,40 @@ public class HelloResource {
 			}
 			return ResponseEntity.ok(result);
 		}
+		
+		//添加一名员工
+		@PostMapping("")
+		public ResponseEntity<List<Employee>> addEmployee(@RequestBody Employee employee){
+			dbSql.getEmployees().add(employee);
+			return ResponseEntity.ok(dbSql.getEmployees());
+		}
+		
+		//update一名员工
+		@PutMapping("/{id}")
+		public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee, @PathVariable int id){
+			for(Employee e : dbSql.getEmployees()) {
+				if(e.getId() == id) {
+					e.setAge(employee.getAge());
+					e.setGender(employee.getGender());
+					e.setName(employee.getName());
+					e.setSalary(employee.getSalary());
+					return ResponseEntity.ok(e);
+				}
+			}
+			return ResponseEntity.notFound().build();
+		}
+		
+		//delete一名员工
+		@DeleteMapping("/{id}")
+		public ResponseEntity<List<Employee>> deleteEmployee(@PathVariable int id){
+			Iterator<Employee> iterator = dbSql.getEmployees().iterator();
+			while (iterator.hasNext()) {
+				if(iterator.next().getId() == id) {
+					iterator.remove();
+					return ResponseEntity.ok(dbSql.getEmployees());
+				}
+			}
+			return ResponseEntity.notFound().build();
+		}
 
 }
