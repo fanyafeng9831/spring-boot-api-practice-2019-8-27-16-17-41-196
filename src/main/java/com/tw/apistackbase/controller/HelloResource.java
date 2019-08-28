@@ -50,6 +50,26 @@ public class HelloResource {
 		return ResponseEntity.notFound().build();
 	}
 	
+	//添加一个公司
+	 @PostMapping("")
+	 public ResponseEntity<List<Company>> addCompany(@RequestBody Company company){
+	  dbSql.getCompanies().add(company);
+	  return ResponseEntity.ok(dbSql.getCompanies());
+	 }
+	 
+	 //更新一个公司的基本信息
+	 @PutMapping("/{id}")
+	 public ResponseEntity<Company> updateCompany(@RequestBody Company company, @PathVariable int id){
+	  for(Company c : dbSql.getCompanies()) {
+	   if(c.getId() == id) {
+	    c.setCompanyName(company.getCompanyName());
+	    c.setEmployees(company.getEmployees());
+	    c.setEmployeesNumber(company.getEmployeesNumber());
+	    return ResponseEntity.ok(company);
+	   }
+	  }
+	  return ResponseEntity.notFound().build();
+	 }
 	
 
 }
